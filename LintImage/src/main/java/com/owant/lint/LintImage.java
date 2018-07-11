@@ -88,7 +88,7 @@ public class LintImage implements PatternPng.FindCallback {
 
                 int len;
                 while ((len = inputStream.read(buffer)) != -1) {
-                    content.append(new String(buffer, 0, len));
+                    content.append(new String(buffer, 0, len,"utf-8"));
                 }
 
                 inputStream.close();

@@ -1,5 +1,6 @@
 package com.owant.page;
 
+
 import java.io.*;
 
 public class FileTool {
@@ -13,11 +14,20 @@ public class FileTool {
             FileInputStream inputStream = null;
             try {
                 inputStream = new FileInputStream(file);
-                byte[] buffer = new byte[1024];
+                InputStreamReader read = new InputStreamReader(inputStream, "utf-8");
+                char[] buffer = new char[1024];
                 int len;
-                while ((len = inputStream.read(buffer)) != -1) {
-                    contentBuffer.append(new String(buffer, 0, len, "utf-8"));
+                while ((len = read.read(buffer)) != -1) {
+                    contentBuffer.append(new String(buffer, 0, len));
                 }
+                read.close();
+
+//                byte[] buffer = new byte[1024];
+//                int len;
+//                while ((len = inputStream.read(buffer)) != -1) {
+//                    contentBuffer.append(new String(buffer, 0, len, "utf-8"));
+//                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {

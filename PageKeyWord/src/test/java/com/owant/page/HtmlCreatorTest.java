@@ -21,7 +21,7 @@ public class HtmlCreatorTest {
 
     @Test
     public void getFormatCols() {
-        System.out.println(HtmlCreator.getFormatCols("ok", "ok", "Okey", "确认"));
+        System.out.println(HtmlCreator.getFormatCols("ok", "ok", "Okey", "确认","es","fr","it"));
     }
 
     @Test

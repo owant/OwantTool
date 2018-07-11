@@ -20,9 +20,12 @@ public class SortKey {
 
 
     //翻译的数据
-    private JSONObject enSource;
-    private JSONObject deSource;
-    private JSONObject jaSource;
+    private JSONObject enSource;//英文
+    private JSONObject deSource;//德语
+    private JSONObject jaSource;//日语
+    private JSONObject esSource;//西班牙
+    private JSONObject frSource;//法语
+    private JSONObject itSource;//意大利
 
     /**
      * 配对import,不配对第三方库的内容
@@ -55,6 +58,8 @@ public class SortKey {
             //读取导航页面
             readNavigation(this.navigationFilePath);
 
+
+//            System.out.println(jaSource.getString("electricity_instructions"));
 
             //保存文件
             createTime = new Date().getTime();
@@ -89,17 +94,19 @@ public class SortKey {
             for (String re : responseSet) {
                 String en = enSource.getString(re);
                 String de = deSource.getString(re);
-                String js = jaSource.getString(re);
-                if (en == null) {
-                    en = "";
-                }
-                if (de == null) {
-                    de = "";
-                }
-                if (js == null) {
-                    js = "";
-                }
-                FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getFormatCols(re, en, de, js));
+                String ja = jaSource.getString(re);
+                String es = esSource.getString(re);
+                String fr = frSource.getString(re);
+                String it = itSource.getString(re);
+
+                en = emptyString(en);
+                de = emptyString(de);
+                ja = emptyString(ja);
+                es = emptyString(es);
+                fr = emptyString(fr);
+                it = emptyString(it);
+
+                FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getFormatCols(re, en, de, ja,es,fr,it));
             }
 
 
@@ -124,6 +131,9 @@ public class SortKey {
             enSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\en.json"));
             deSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\de.json"));
             jaSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\ja.json"));
+            esSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\es.json"));
+            frSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\fr.json"));
+            itSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\it.json"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -168,22 +178,31 @@ public class SortKey {
                     String en = enSource.getString(key);
                     String de = deSource.getString(key);
                     String js = jaSource.getString(key);
-                    if (en == null) {
-                        en = "";
-                    }
-                    if (de == null) {
-                        de = "";
-                    }
-                    if (js == null) {
-                        js = "";
-                    }
-                    FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getFormatCols(key, en, de, js));
+                    String es = esSource.getString(key);
+                    String fr = frSource.getString(key);
+                    String it = itSource.getString(key);
+
+                    en = emptyString(en);
+                    de = emptyString(de);
+                    js = emptyString(js);
+                    es = emptyString(es);
+                    fr = emptyString(fr);
+                    it = emptyString(it);
+
+                    FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getFormatCols(key, en, de, js, es, fr, it));
                 }
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String emptyString(String en) {
+        if (en == null) {
+            en = "";
+        }
+        return en;
     }
 
     public static boolean isNumeric(String str) {

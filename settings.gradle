@@ -1,3 +1,5 @@
 rootProject.name = 'OwantTool'
 include 'PageKeyWord'
 include 'LintImage'
+include 'ZenplinImage'
+

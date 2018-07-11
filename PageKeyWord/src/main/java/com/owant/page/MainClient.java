@@ -6,7 +6,7 @@ public class MainClient {
         if (args.length == 3) {
             new SortKey(args[0], args[1], args[2]);
         } else {
-            System.out.println("Please input args[]!");
+            System.out.println("Please input args[翻译文件夹,导航模块,输出文件路径]!");
         }
     }
 

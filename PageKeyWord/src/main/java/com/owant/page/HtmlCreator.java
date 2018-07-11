@@ -21,6 +21,9 @@ public class HtmlCreator {
             "   <td>英文</td>\n" +
             "   <td>德文</td>\n" +
             "   <td>日文</td>\n" +
+            "   <td>西班牙</td>\n" +
+            "   <td>法语</td>\n" +
+            "   <td>意大利</td>\n" +
             "</tr>\n";
 
     private static final String COLS_EMPTY = "<tr>\n" +
@@ -29,9 +32,15 @@ public class HtmlCreator {
             "   <td> </td>\n" +
             "   <td> </td>\n" +
             "   <td> </td>\n" +
+            "   <td> </td>\n" +
+            "   <td> </td>\n" +
+            "   <td> </td>\n" +
             "</tr>\n";
 
     private static final String format_cols = "<tr>\n" +
+            "   <td>%s</td>\n" +
+            "   <td>%s</td>\n" +
+            "   <td>%s</td>\n" +
             "   <td>%s</td>\n" +
             "   <td>%s</td>\n" +
             "   <td>%s</td>\n" +
@@ -56,10 +65,6 @@ public class HtmlCreator {
         return String.format(COLS_EMPTY, pageName);
     }
 
-    public static String getFormatCols(String key, String en, String de, String ja) {
-        return String.format(format_cols, key, en, de, ja);
-    }
-
     public static String getFormatRows(int count, String pageName) {
         if (count == 1) {
             return String.format(getColsEmpty(pageName));
@@ -72,4 +77,7 @@ public class HtmlCreator {
     }
 
 
+    public static String getFormatCols(String key, String en, String de, String ja, String es, String fr, String it) {
+        return String.format(format_cols, key, en, de, ja,es,fr,it);
+    }
 }
