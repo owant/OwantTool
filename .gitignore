@@ -3,3 +3,4 @@ bin
 out
 .classpath
 .project
+.gradle/*
