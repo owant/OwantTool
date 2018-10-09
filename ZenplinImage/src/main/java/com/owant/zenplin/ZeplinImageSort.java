@@ -23,7 +23,7 @@ public class ZeplinImageSort {
     public ZeplinImageSort(String sourcePath) {
         allImages = readImageFiles(sourcePath);
         sortPath = createSortDir(sourcePath);
-        sortImage(allImages,sortPath);
+        sortImage(allImages, sortPath);
     }
 
     public List<File> readImageFiles(String filePath) {
@@ -94,9 +94,9 @@ public class ZeplinImageSort {
 //        File source=new File("C:\\Users\\Dell\\Desktop\\OwantProject\\JavaStudy\\src\\main\\java\\com\\owant\\tool\\ZeplinImageSort.java");
 //        File save=new File("C:\\Users\\Dell\\Desktop\\OwantProject\\JavaStudy\\src\\main\\java\\com\\owant\\tool\\Sort\\Test.java");
 //        sort.copyFile(source,save);
-
-
-        new ZeplinImageSort("C:\\Users\\Dell\\Desktop\\Images");
+//
+//
+        new ZeplinImageSort(args[0]);
 
     }
 

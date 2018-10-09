@@ -48,6 +48,7 @@ public class HtmlCreator {
             "</tr>\n";
 
 
+    //表格第一行代码
     private static final String format_rows = "<tr>\n" +
             "   <td rowspan=\"%d\">%s</td>  \n" +
             "</tr>\n";

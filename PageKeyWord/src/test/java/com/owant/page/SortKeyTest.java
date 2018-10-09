@@ -9,18 +9,9 @@ public class SortKeyTest {
 
     @Test
     public void main() {
-//        sortKey = new SortKey("E:\\Saft\\app\\Commons\\translations",
-//                "E:\\Saft\\app\\ModuleEntry\\wifioutlet_7a.js",
-//        "F:\\open_source\\PageKeyWord\\src\\main\\java\\com\\owant\\page");
-
-
-        sortKey = new SortKey("E:\\7A2\\app\\Commons\\translations",
-                "E:\\7A2\\app\\ModuleEntry\\wifioutlet_15a.js",
-                "C:\\Users\\Dell\\Desktop\\OwantTool\\PageKeyWord\\src\\main\\java\\com\\owant\\page");
-
-//        sortKey = new SortKey("E:\\7A2\\app\\Commons\\translations",
-//                "E:\\7A2\\app\\ModuleEntry\\NetworkConfig.js",
-//                "C:\\Users\\Dell\\Desktop\\OwantTool\\PageKeyWord\\src\\main\\java\\com\\owant\\page");
+        sortKey = new SortKey("/Users/owant/MyGit/AirSource/app/Commons/translations",
+                "/Users/owant/MyGit/AirSource/app/ModuleEntry/air_purifier_131.js",
+                "/Users/owant/MyGit/OwantTool/PageKeyWord/src/test/java/com/owant/page");
     }
 
 

@@ -2,4 +2,6 @@ rootProject.name = 'OwantTool'
 include 'PageKeyWord'
 include 'LintImage'
 include 'ZenplinImage'
+include 'TestSome'
+include 'AndroidString'
 

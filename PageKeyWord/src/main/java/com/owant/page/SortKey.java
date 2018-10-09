@@ -1,6 +1,7 @@
 package com.owant.page;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.File;
@@ -34,7 +35,8 @@ public class SortKey {
     /**
      * 配对翻译文本
      */
-    private static final String PATTERN_OF_KEY_WORD = "I18n\\.t\\([\"']([^\\s:.)]{1,})[\"']\\)";
+//    private static final String PATTERN_OF_KEY_WORD = "I18n\\.t\\([\"']([^\\s:.)]{1,})[\"']\\)";
+    private static final String PATTERN_OF_KEY_WORD = "I18n\\.t\\([\"']([^\\s:.)]{1,})[\"'][,\\)]";
     private TreeSet<String> pagesSet = new TreeSet<>();
 
 
@@ -43,6 +45,9 @@ public class SortKey {
     private String saveFile;
 
     private TreeSet<String> responseSet = new TreeSet<>();
+
+
+    private TreeSet<String> enSortSet = new TreeSet<>();
 
     public SortKey(String transFilePath, String navigationFilePath, String saveHtmlPath) {
         this.transFilePath = transFilePath;
@@ -57,9 +62,6 @@ public class SortKey {
 
             //读取导航页面
             readNavigation(this.navigationFilePath);
-
-
-//            System.out.println(jaSource.getString("electricity_instructions"));
 
             //保存文件
             createTime = new Date().getTime();
@@ -86,32 +88,64 @@ public class SortKey {
                     i++;
                 }
             }
+
+            //保存http请求回调的多语言
+            doResponseHtml(responseSet, "http response");
+            //写入html最后的代码
+            FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getHtmlBodyBottom());
+
+
             System.out.println("-------------------end--------------------");
             System.out.println("-------- open the html file in excel------");
 
 
-            FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getFormatRows(responseSet.size() + 1, "http response"));
-            for (String re : responseSet) {
-                String en = enSource.getString(re);
-                String de = deSource.getString(re);
-                String ja = jaSource.getString(re);
-                String es = esSource.getString(re);
-                String fr = frSource.getString(re);
-                String it = itSource.getString(re);
-
-                en = emptyString(en);
-                de = emptyString(de);
-                ja = emptyString(ja);
-                es = emptyString(es);
-                fr = emptyString(fr);
-                it = emptyString(it);
-
-                FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getFormatCols(re, en, de, ja,es,fr,it));
-            }
-
-
-            FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getHtmlBodyBottom());
         }
+
+        //打印json
+        for (String item : enSortSet) {
+            JSONObject en = new JSONObject();
+            en.put(item, enSource.getString(item));
+            String itemJSON = en.toJSONString();
+            System.out.println(itemJSON.substring(1, itemJSON.length() - 1) + ",");
+        }
+    }
+
+    private void doResponseHtml(TreeSet<String> responseSet, String firstTabRowName) {
+        FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getFormatRows(responseSet.size() + 1, firstTabRowName));
+        for (String re : responseSet) {
+            String en = enSource.getString(re);
+            String de = deSource.getString(re);
+            String ja = jaSource.getString(re);
+            String es = esSource.getString(re);
+            String fr = frSource.getString(re);
+            String it = itSource.getString(re);
+
+            en = emptyString(en);
+            de = emptyString(de);
+            ja = emptyString(ja);
+            es = emptyString(es);
+            fr = emptyString(fr);
+            it = emptyString(it);
+
+            FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getFormatCols(re, en, de, ja, es, fr, it));
+
+
+            if (!hadTrans(re))
+                enSortSet.add(re);
+        }
+    }
+
+    private boolean hadTrans(String key) {
+        boolean had = true;
+        if (enSource.getString(key)==null||
+                deSource.getString(key)==null||
+                jaSource.getString(key)==null ||
+                esSource.getString(key)==null ||
+                frSource.getString(key)==null ||
+                itSource.getString(key)==null) {
+            had = false;
+        }
+        return had;
     }
 
     private void printShow(int i) {
@@ -128,12 +162,12 @@ public class SortKey {
 
     private void initTranSource(String transPath) {
         try {
-            enSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\en.json"));
-            deSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\de.json"));
-            jaSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\ja.json"));
-            esSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\es.json"));
-            frSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\fr.json"));
-            itSource = JSON.parseObject(FileTool.readFileContent(transPath + "\\it.json"));
+            enSource = JSON.parseObject(FileTool.readFileContent(transPath + "//en.json"));
+            deSource = JSON.parseObject(FileTool.readFileContent(transPath + "//de.json"));
+            jaSource = JSON.parseObject(FileTool.readFileContent(transPath + "//ja.json"));
+            esSource = JSON.parseObject(FileTool.readFileContent(transPath + "//es.json"));
+            frSource = JSON.parseObject(FileTool.readFileContent(transPath + "//fr.json"));
+            itSource = JSON.parseObject(FileTool.readFileContent(transPath + "//it.json"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -173,24 +207,7 @@ public class SortKey {
                     }
                 }
 
-                FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getFormatRows(keys.size() + 1, pageName));
-                for (String key : keys) {
-                    String en = enSource.getString(key);
-                    String de = deSource.getString(key);
-                    String js = jaSource.getString(key);
-                    String es = esSource.getString(key);
-                    String fr = frSource.getString(key);
-                    String it = itSource.getString(key);
-
-                    en = emptyString(en);
-                    de = emptyString(de);
-                    js = emptyString(js);
-                    es = emptyString(es);
-                    fr = emptyString(fr);
-                    it = emptyString(it);
-
-                    FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getFormatCols(key, en, de, js, es, fr, it));
-                }
+                doResponseHtml(keys, pageName);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

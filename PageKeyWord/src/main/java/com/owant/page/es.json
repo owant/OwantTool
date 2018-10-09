@@ -1,0 +1,59 @@
+{
+  //首页
+  "filter_percent":"Vida útil del filtro: {{value}}%",
+  "change_filter":"Cambiar filtro",
+  "air_very_good":"MUY BUENO",
+  "air_good":"BUENO",
+  "air_moderate":"MODERADO",
+  "air_bad":"MALO",
+  "med":"Med",
+  "create_schedule_title":"Crear programa",
+  "activate_schedule":"Activate Schedule",
+  "display_off":"La pantalla del dispositivo está apagada.",
+
+  //设置页面
+  "filter_life":"Vida útil del filtro",
+  "buy_replacement_filters":"Comprar Filtro de Reemplazo",
+  "remaining":"% restante",
+  "display":"Pantalla",
+  "sleep":"Dormir",
+  "living_room_air_purifier":"Purificador de aire para salón",
+
+  //计划任务详情
+  "limit_10_item":"You've reached your limit of 10 schedules.\nPlease delete one or more and try again.",
+  "set_100_percent_msg":"El filtro de aire se ajustará ahora al 100%.",
+  "set_time_on_and_off":"Establece una hora para encender tu purificador de aire",
+  "choose_days":"Selecciona los días",
+  "set_mode":"Ajustar modo",
+  "turn_display":"Turn display",
+  "weekly":"Semanalmente",
+  "timer_start":"Iniciar",
+  "timer_end":"Fin",
+
+  //重置滤网
+  "filter_life2":"Vida útil del filtro:",
+  "resplace_filter_title":"Sustituir el filtro",
+  "resplace_info":"Sigue las instrucciones en la cubierta posterior del dispositivo para reemplazar el filtro. Una vez sustituido, pulsa el botón  \"Done Replacing Filter\"",
+  "buy_filter":"Comprar Filtro de Reemplazo",
+  "done_resplac_filter":"Done Replacing Filter",
+
+  "add_timer":"Añadir temporizador",
+  "am":"AM",
+  "auto":"Auto",
+  "connected":"Conectado",
+  "disconnected":"Desconectado",
+  "filters":"Vida útil del filtro",
+  "change_device_name_tip":"Dé un nombre a su dispositivo que recordará como \"{{value}}\"",
+  "every_day_2":"Everyday",
+  "high":"Alto",
+  "hour":"hora",
+  "input_unique_name_tips":"Por favor ingrese un nombre único",
+  "low":"Bajo",
+  "on_off":"Encendido/Apagado",
+  "pm":"PM",
+  "reset":"Reiniciar",
+  "rest_filter_tip1":"La vida media del filtro es de 3-6 meses dependiendo de la calidad del aire y el uso.",
+  "web_page_browser":"Browser",
+  "week_days":"Weekdays",
+  "weekend":"Weekend"
+}
