@@ -12,8 +12,39 @@ import java.util.Map;
 public class AndroidStringTool {
 
 
-    LinkedHashMap<String, String> enSources;
+    private  LinkedHashMap<String, String> enSource;//英文
+    private  LinkedHashMap<String, String> deSource;//德语
+    private  LinkedHashMap<String, String> frSource;//法语
+    private  LinkedHashMap<String, String> itSource;//意大利
+    private  LinkedHashMap<String, String> esSource;//西班牙
+    private  LinkedHashMap<String, String> jaSource;//日语
 
+    private static String tabs_title = "|key|en|de|fr|it|es|ja|\n";
+    private static String tabs_title_line = "|:---:|:---:|:----|:----|:-----|:-----|:-----|\n";
+    private static String tabs_row = "|%s|%s|%s|%s|%s|%s|%s|\n";
+
+
+    public AndroidStringTool() {
+        enSource=readStringXML("/Users/owant/MyGit/VesyncBuild/android/app/src/main/res/values/strings.xml");
+        deSource=readStringXML("/Users/owant/MyGit/VesyncBuild/android/app/src/main/res/values-de/strings.xml");
+        frSource=readStringXML("/Users/owant/MyGit/VesyncBuild/android/app/src/main/res/values-fr/strings.xml");
+        itSource=readStringXML("/Users/owant/MyGit/VesyncBuild/android/app/src/main/res/values-it/strings.xml");
+        esSource=readStringXML("/Users/owant/MyGit/VesyncBuild/android/app/src/main/res/values-es/strings.xml");
+        jaSource=readStringXML("/Users/owant/MyGit/VesyncBuild/android/app/src/main/res/values-ja/strings.xml");
+
+
+        System.out.printf(tabs_title);
+        System.out.printf(tabs_title_line);
+
+        Iterator<Map.Entry<String, String>> iterator = enSource.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<String, String> next = iterator.next();
+            String key = next.getKey();
+            System.out.printf(tabs_row, key,next.getValue(),deSource.get(key),frSource.get(key),itSource.get(key),esSource.get(key),jaSource.get(key));
+        }
+
+
+    }
 
     private LinkedHashMap<String, String> readStringXML(String filePath) {
         LinkedHashMap<String, String> result = new LinkedHashMap<>();
@@ -84,32 +115,5 @@ public class AndroidStringTool {
 
     public static void main(String[] args) {
         AndroidStringTool androidStringTool = new AndroidStringTool();
-        LinkedHashMap<String, String> result = androidStringTool.readStringXML("/Users/owant/Desktop/strings.xml");
-        Iterator<Map.Entry<String, String>> iterator = result.entrySet().iterator();
-
-//        String rContext = androidStringTool.readRFile("/Users/owant/Desktop/R.java");
-//        System.out.println(rContext);
-
-
-        LinkedHashMap<String, String> jaSources = androidStringTool.readStringXML("/Users/owant/MyGit/AirSource/android/app/src/main/res/values-de/strings.xml");
-
-
-        while (iterator.hasNext()) {
-            Map.Entry<String, String> next = iterator.next();
-//            System.out.printf("%s:%s\n", next.getKey(), next.getValue());
-//            if (!rContext.contains(next.getKey())) {
-//                System.out.println(next.getKey());
-//            }
-
-            jaSources.remove(next.getKey());
-        }
-
-        Iterator<Map.Entry<String, String>> iterator1 = jaSources.entrySet().iterator();
-        while (iterator1.hasNext()) {
-            Map.Entry<String, String> next = iterator1.next();
-            System.out.printf("%s:%s\n", next.getKey(), next.getValue());
-        }
-
-
     }
 }
