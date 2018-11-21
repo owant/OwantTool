@@ -137,12 +137,12 @@ public class SortKey {
 
     private boolean hadTrans(String key) {
         boolean had = true;
-        if (enSource.getString(key)==null||
-                deSource.getString(key)==null||
-                jaSource.getString(key)==null ||
-                esSource.getString(key)==null ||
-                frSource.getString(key)==null ||
-                itSource.getString(key)==null) {
+        if (enSource.getString(key) == null ||
+                deSource.getString(key) == null ||
+                jaSource.getString(key) == null ||
+                esSource.getString(key) == null ||
+                frSource.getString(key) == null ||
+                itSource.getString(key) == null) {
             had = false;
         }
         return had;
@@ -155,9 +155,11 @@ public class SortKey {
             start.append("*");
         }
         i++;
-        buffer = buffer.replace(buffer.length() / 2, buffer.length() / 2 + i, start.toString());
-        buffer = buffer.replace(buffer.length() / 2 - i, buffer.length() / 2, start.toString());
-        System.out.println(buffer);
+        if (buffer.length() / 2 - i > 0) {
+            buffer = buffer.replace(buffer.length() / 2, buffer.length() / 2 + i, start.toString());
+            buffer = buffer.replace(buffer.length() / 2 - i, buffer.length() / 2, start.toString());
+            System.out.println(buffer);
+        }
     }
 
     private void initTranSource(String transPath) {
