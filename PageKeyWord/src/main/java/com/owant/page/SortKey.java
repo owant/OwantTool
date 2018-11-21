@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,7 +36,6 @@ public class SortKey {
     /**
      * 配对翻译文本
      */
-//    private static final String PATTERN_OF_KEY_WORD = "I18n\\.t\\([\"']([^\\s:.)]{1,})[\"']\\)";
     private static final String PATTERN_OF_KEY_WORD = "I18n\\.t\\([\"']([^\\s:.)]{1,})[\"'][,\\)]";
     private TreeSet<String> pagesSet = new TreeSet<>();
 
@@ -48,6 +48,8 @@ public class SortKey {
 
 
     private TreeSet<String> enSortSet = new TreeSet<>();
+
+    private TreeSet<String> allKeys = new TreeSet<>();
 
     public SortKey(String transFilePath, String navigationFilePath, String saveHtmlPath) {
         this.transFilePath = transFilePath;
@@ -108,7 +110,29 @@ public class SortKey {
             String itemJSON = en.toJSONString();
             System.out.println(itemJSON.substring(1, itemJSON.length() - 1) + ",");
         }
+
+
+        Iterator<String> iterator = allKeys.iterator();
+        System.out.printf("\n\n");
+        System.out.printf(tabs_title);
+        System.out.printf(tabs_title_line);
+
+
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            System.out.printf(tabs_row,key,enSource.getString(key),
+                    deSource.getString(key),
+                    frSource.getString(key),
+                    itSource.getString(key),
+                    esSource.getString(key),
+                    jaSource.getString(key)
+                    );
+        }
     }
+
+    private static String tabs_title = "|key|en|de|fr|it|es|ja|\n";
+    private static String tabs_title_line = "|:---:|:---:|:----|:----|:-----|:-----|:-----|\n";
+    private static String tabs_row = "|%s|%s|%s|%s|%s|%s|%s|\n";
 
     private void doResponseHtml(TreeSet<String> responseSet, String firstTabRowName) {
         FileTool.saveFileContentAppend(this.saveFile, HtmlCreator.getFormatRows(responseSet.size() + 1, firstTabRowName));
@@ -203,6 +227,7 @@ public class SortKey {
                     for (String ck : childKeys) {
                         if (!isNumeric(ck)) {//标识号
                             keys.add(ck);
+                            allKeys.add(ck);
                         } else {
                             responseSet.add(ck);
                         }
