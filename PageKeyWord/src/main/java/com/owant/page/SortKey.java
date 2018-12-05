@@ -37,7 +37,7 @@ public class SortKey {
      * 配对翻译文本
      */
     private static final String PATTERN_OF_KEY_WORD = "I18n\\.t\\([\"']([^\\s:.)]{1,})[\"'][,\\)]";
-    private TreeSet<String> pagesSet = new TreeSet<>();
+    public TreeSet<String> pagesSet = new TreeSet<>();
 
 
     private Long createTime;
@@ -50,6 +50,9 @@ public class SortKey {
     private TreeSet<String> enSortSet = new TreeSet<>();
 
     private TreeSet<String> allKeys = new TreeSet<>();
+
+    public SortKey() {
+    }
 
     public SortKey(String transFilePath, String navigationFilePath, String saveHtmlPath) {
         this.transFilePath = transFilePath;
@@ -85,6 +88,9 @@ public class SortKey {
             int i = 1;
             for (String page : pagesSet) {
                 if (!page.endsWith(".png") && !page.endsWith(".json")) {
+                    if (page.endsWith(".js")) {
+                        page = page.replaceAll(".js", "");
+                    }
                     doPageBusiness(navigationFile.getParentFile().getPath(), page + ".js");
                     printShow(i);
                     i++;
@@ -113,20 +119,19 @@ public class SortKey {
 
 
         Iterator<String> iterator = allKeys.iterator();
-        System.out.printf("\n\n");
-        System.out.printf(tabs_title);
-        System.out.printf(tabs_title_line);
+        System.out.print("\n\n");
+        System.out.print(tabs_title);
+        System.out.print(tabs_title_line);
 
 
         while (iterator.hasNext()) {
             String key = iterator.next();
-            System.out.printf(tabs_row,key,enSource.getString(key),
+            System.out.printf(tabs_row, key, enSource.getString(key),
                     deSource.getString(key),
                     frSource.getString(key),
                     itSource.getString(key),
                     esSource.getString(key),
-                    jaSource.getString(key)
-                    );
+                    jaSource.getString(key));
         }
     }
 
@@ -199,7 +204,7 @@ public class SortKey {
         }
     }
 
-    private void readNavigation(String navigationFilePath) {
+    public void readNavigation(String navigationFilePath) {
         try {
             String navigationContent = FileTool.readFileContent(navigationFilePath);
             pagesSet = patternKey(navigationContent, PATTERN_OF_IMPORT_FILE);
@@ -265,6 +270,9 @@ public class SortKey {
             TreeSet<String> tempImport = patternKey(content, PATTERN_OF_IMPORT_FILE);
             for (String item : tempImport) {
                 if (!item.endsWith(".png") && !item.endsWith(".json")) {
+                    if (item.endsWith(".js")) {
+                        item = item.replaceAll(".js", "");
+                    }
                     File f = new File(new File(pagePath).getParentFile(), item + ".js");
                     String canonicalPath = f.getPath();
                     if (noLooperImport.add(canonicalPath)) {
