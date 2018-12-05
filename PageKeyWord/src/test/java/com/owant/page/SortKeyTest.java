@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.Iterator;
+import java.util.TreeSet;
 
 public class SortKeyTest {
     SortKey sortKey;
@@ -26,7 +27,7 @@ public class SortKeyTest {
     public void getAllImport() {
         try {
             sortKey.noLooperImport.clear();
-            sortKey.getAllImport("/Users/owant/MyGit/DevAirSource/app/Module/fatScale_esf37/Components/UserHistory.js");
+            sortKey.getAllImport("/Users/owant/MyGit/DevAirSource/app/Module/fatScale_esf37/Components/Settings.js");
             for (String item : sortKey.noLooperImport) {
                 System.out.println(item);
             }
@@ -44,6 +45,16 @@ public class SortKeyTest {
         while (iterator.hasNext()) {
             String next = iterator.next();
             System.out.println(next);
+        }
+    }
+
+
+    @Test
+    public void patternImportJS(){
+        TreeSet<String> tree = sortKey.patternKey("//     import StyleDeviceName from '../../../Commons/StyleDeviceName';\n", sortKey.PATTERN_OF_IMPORT_FILE);
+        Iterator<String> iterator = tree.iterator();
+        while (iterator.hasNext()){
+            System.out.println(iterator.next());
         }
     }
 }

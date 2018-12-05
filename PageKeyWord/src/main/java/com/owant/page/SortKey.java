@@ -32,11 +32,11 @@ public class SortKey {
     /**
      * 配对import,不配对第三方库的内容
      */
-    private static final String PATTERN_OF_IMPORT_FILE = "import\\b\\s.{1,}\\bfrom\\s['\"](\\.{1,}.{1,})['\"]";
+    public static final String PATTERN_OF_IMPORT_FILE = "[^//]\\s*import\\b\\s.{1,}\\bfrom\\s['\"](\\.{1,}.{1,})['\"]";
     /**
      * 配对翻译文本
      */
-    private static final String PATTERN_OF_KEY_WORD = "I18n\\.t\\([\"']([^\\s:.)]{1,})[\"'][,\\)]";
+    public static final String PATTERN_OF_KEY_WORD = "I18n\\.t\\([\"']([^\\s:.)]{1,})[\"'][,\\)]";
     public TreeSet<String> pagesSet = new TreeSet<>();
 
 
